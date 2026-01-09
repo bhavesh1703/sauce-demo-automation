@@ -17,7 +17,7 @@ import java.util.List;
 
 public class LoginTest extends BaseTest {
 
-    @Test(groups = "regression", retryAnalyzer = RetryAnalyzer.class)
+    @Test(groups = "smoke", retryAnalyzer = RetryAnalyzer.class)
     public void verifyValidLogin() {
         LoginPage login = new LoginPage(BaseTest.getDriver());
         System.out.println("Driver is : " + BaseTest.getDriver());
@@ -37,7 +37,7 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(products.isProductPageDisplayed(), "Product Page is not displayed.");
     }
 
-    @Test(groups = "regression")
+    @Test(groups = "smoke")
     public void verifyInvalidLogin() {
         LoginPage login = new LoginPage(BaseTest.getDriver());
         login.setLogin("Invalid", "Wrong");
