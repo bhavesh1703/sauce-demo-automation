@@ -37,88 +37,16 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(products.isProductPageDisplayed(), "Product Page is not displayed.");
     }
 
-    @Test(groups = "smoke")
+    @Test(groups = "regression")
+    public void verifyLoginPageTitle() {
+        Assert.assertEquals(BaseTest.getDriver().getTitle(), "Swag Labs", "Title not matched.");
+        System.out.println("Page Title: " + BaseTest.getDriver().getTitle());
+    }
+
+    @Test(groups = "regression")
     public void verifyInvalidLogin() {
         LoginPage login = new LoginPage(BaseTest.getDriver());
         login.setLogin("Invalid", "Wrong");
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        //Validations
-        Assert.assertTrue(login.isErrorMessageDisplayed());
-        Assert.assertEquals(login.getErrorMessage(),
-                "Epic sadface: Username and password do not match any user in this service");
-    }
-
-    @Test(groups = "regression")
-    public void verifyProductCount() {
-        LoginPage login = new LoginPage(BaseTest.getDriver());
-        login.setLogin(ConfigReader.getUsername(), ConfigReader.getPassword());
-
-        ProductsPage productsPage = new ProductsPage(BaseTest.getDriver());
-
-        //Check the Product Count
-//        Assert.assertTrue(productsPage.getTotalProductCount() > 0);
-        AssertUtils.assertListNotEmpty(productsPage.getAllProductNames());
-    }
-
-    @Test(groups = "regression")
-    public void verifyProductName() {
-        LoginPage login = new LoginPage(BaseTest.getDriver());
-        login.setLogin(ConfigReader.getUsername(), ConfigReader.getPassword());
-
-        ProductsPage productsPage = new ProductsPage(BaseTest.getDriver());
-
-        AssertUtils.assertListContains(productsPage.getAllProductNames(), ConfigReader.getValue("expectedFirstProduct"));
-    }
-
-    @Test(groups = "regression")
-    public void verifyProductFilter() {
-        LoginPage login = new LoginPage(BaseTest.getDriver());
-        login.setLogin(ConfigReader.getUsername(), ConfigReader.getPassword());
-
-        ProductsPage productsPage = new ProductsPage(BaseTest.getDriver());
-        //1. Store the prices in List of String (Unsorted, unformatted)
-        List<String> priceString = productsPage.getAllPrices();
-        List<Double> originalPriceList = new ArrayList<>(); //without filter
-
-        for(String price : priceString) {
-//            System.out.println(price);
-            originalPriceList.add(Double.parseDouble(price.replace("$", "").trim()));
-        }
-
-        //2. Expected sorted list.
-        List<Double> expectedSortedPrices = new ArrayList<>(originalPriceList);
-        Collections.sort(expectedSortedPrices);
-
-        //3. Apply the filter
-        productsPage.applyFilter("Price (low to high)");
-
-        //4. Get the Prices after filter
-        List<String> filteredPriceString = productsPage.getAllPrices();
-        List<Double> actualFilteredPrice = new ArrayList<>();
-
-        for(String price : filteredPriceString) {
-            actualFilteredPrice.add(Double.parseDouble(price.replace("$","").trim()));
-        }
-
-        //Validations
-        Assert.assertEquals(actualFilteredPrice, expectedSortedPrices);
-
-    }
-
-    @Test(groups = "smoke", retryAnalyzer = RetryAnalyzer.class)
-    public void verifyAddToCart() {
-        LoginPage loginPage = new LoginPage(BaseTest.getDriver());
-        loginPage.setLogin(ConfigReader.getUsername(), ConfigReader.getPassword());
-
-        ProductsPage productsPage = new ProductsPage(BaseTest.getDriver());
-        productsPage.addProductToCart("Sauce Labs Bolt T-Shirt");
-        productsPage.clickOnCart();
 
 //        try {
 //            Thread.sleep(2000);
@@ -126,10 +54,36 @@ public class LoginTest extends BaseTest {
 //            throw new RuntimeException(e);
 //        }
 
-        CartPage cartPage = new CartPage(BaseTest.getDriver());
-        System.out.println(cartPage.getTotalItemsInCart());
+        //Validations
+        Assert.assertTrue(login.isErrorMessageDisplayed());
+        Assert.assertEquals(login.getErrorMessage(),
+                "Epic sadface: Username and password do not match any user in this service");
 
-        Assert.assertEquals(cartPage.getTotalItemsInCart(), 1);
-
+        login.clickErrorCloseButton();
     }
+
+    @Test(groups = "regression")
+    public void verifyBlankUsernameField() {
+        LoginPage login = new LoginPage(BaseTest.getDriver());
+        login.setLogin("", ConfigReader.getPassword());
+
+        //Validations
+        Assert.assertTrue(login.isErrorMessageDisplayed());
+        Assert.assertEquals(login.getErrorMessage(), "Epic sadface: Username is required");
+
+        login.clickErrorCloseButton();
+    }
+
+    @Test(groups = "regression")
+    public void verifyBlankPasswordField() {
+        LoginPage login = new LoginPage(BaseTest.getDriver());
+        login.setLogin(ConfigReader.getUsername(),"" );
+
+        //Validations
+        Assert.assertTrue(login.isErrorMessageDisplayed());
+        Assert.assertEquals(login.getErrorMessage(), "Epic sadface: Password is required");
+
+        login.clickErrorCloseButton();
+    }
+
 }

@@ -22,7 +22,9 @@ public class CommonActions {
     }
 
     public void enterInput(By element, String input) {
-        BaseTest.getDriver().findElement(element).sendKeys(input);
+        WebElement inputField = BaseTest.getDriver().findElement(element);
+        inputField.clear();
+        inputField.sendKeys(input);
     }
 
     public String getCurrentUrl() {

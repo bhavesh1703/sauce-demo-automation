@@ -35,8 +35,8 @@ public class BaseTest {
         options.addArguments("--disable-infobars");
         options.addArguments("--disable-save-password-bubble");
 
-        options.addArguments("--user-data-dir="+ System.getProperty("java.io.tmpdir") +
-                "chrome-profile-" + System.currentTimeMillis());
+//        options.addArguments("--user-data-dir="+ System.getProperty("java.io.tmpdir") +
+//                "chrome-profile-" + System.currentTimeMillis());
 
         WebDriver webDriver = new ChromeDriver(options);
         webDriver.manage().window().maximize();

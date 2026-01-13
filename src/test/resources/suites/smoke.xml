@@ -15,6 +15,7 @@
         </groups>
         <classes>
             <class name="tests.LoginTest"></class>
+            <class name="tests.ProductsPageTest"></class>
         </classes>
     </test>
 </suite>

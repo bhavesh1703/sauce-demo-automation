@@ -28,7 +28,7 @@ public class ProductsPage {
     private By productPriceLocator = By.className("inventory_item_price");
     private By filterLocator = By.className("product_sort_container");
     private By cartIcon = By.id("shopping_cart_container");
-//    private By cartButton = By.ByXPath("//button[@name='Sauce Labs Bolt T-Shirt']")
+    private By productDescLocator = By.xpath("//div[@class='inventory_item_desc']");
 
     public boolean isProductPageDisplayed() {
         return BaseTest.getDriver().findElement(productPageHeader).isDisplayed();
@@ -55,6 +55,17 @@ public class ProductsPage {
             productPrices.add(text);
         }
         return productPrices;
+    }
+
+    public List<String> getAllDescriptions() {
+        List<WebElement> descriptions = BaseTest.getDriver().findElements(productDescLocator);
+        List<String> productDescs = new ArrayList<>();
+
+        for(WebElement desc : descriptions) {
+            String text = desc.getText().trim();
+            productDescs.add(text);
+        }
+        return productDescs;
     }
 
     public int getTotalProductCount() {

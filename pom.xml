@@ -46,9 +46,13 @@
 
     </dependencies>
 
+
     <!-- ==================================================================================== -->
     <!-- ============================   BUILD CONFIGURATION   =============================== -->
     <!-- ==================================================================================== -->
+    <properties>
+        <suiteXmlFile>src/test/resources/suites/smoke.xml</suiteXmlFile>
+    </properties>
     <build>
         <plugins>
 
@@ -78,7 +82,8 @@
 
                     <suiteXmlFiles>
                         <!-- Use provided suite if passed; otherwise default -->
-                        <suiteXmlFile>${project.basedir}/testng.xml</suiteXmlFile>
+<!--                        <suiteXmlFile>${project.basedir}/testng.xml</suiteXmlFile>-->
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
 
                 </configuration>

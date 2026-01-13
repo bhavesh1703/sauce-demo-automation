@@ -31,8 +31,8 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult result) {
         extentTest.get().pass(result.getName() + ": Test Passed.");
-        String screenshotPath = ScreenshotUtils.takeScreenshot(BaseTest.getDriver(), result.getName());
-        extentTest.get().addScreenCaptureFromPath(screenshotPath);
+//        String screenshotPath = ScreenshotUtils.takeScreenshot(BaseTest.getDriver(), result.getName());
+//        extentTest.get().addScreenCaptureFromPath(screenshotPath);
     }
 
     @Override

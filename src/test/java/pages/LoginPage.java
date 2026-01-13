@@ -4,16 +4,19 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import utils.CommonActions;
 import utils.WaitUtils;
 
 public class LoginPage {
 
     protected WebDriver driver;
     private WaitUtils wait;
+    private CommonActions comm;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
         this.wait = new WaitUtils(driver);
+        this.comm = new CommonActions(driver);
     }
 
     //Locators
@@ -21,6 +24,7 @@ public class LoginPage {
     private By passwordField = By.id("password");
     private By loginButton = By.id("login-button");
     private By errorMessageContainer = By.xpath("//div[@class='error-message-container error']/h3");
+    private By errorCloseButton = By.xpath("//button[@class='error-button']");
 
 
     //Methods
@@ -49,10 +53,20 @@ public class LoginPage {
 
     public String getErrorMessage() {
         if(isErrorMessageDisplayed()) {
+            wait.waitForElementVisible(errorMessageContainer);
             return BaseTest.getDriver().findElement(errorMessageContainer).getText().trim();
         } else {
             return null;
         }
+    }
+
+    public boolean isErrorCloseButtonDisplayed() {
+        return comm.isElementDisplayed(errorCloseButton);
+    }
+
+    public void clickErrorCloseButton() {
+        wait.waitForElementVisible(errorCloseButton);
+        comm.clickElement(errorCloseButton);
     }
 
 
