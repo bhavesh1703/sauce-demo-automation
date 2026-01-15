@@ -16,8 +16,11 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onStart(ITestContext context) {
+        String suiteName = context.getSuite().getName();
+        String timeStamp = String.valueOf(System.currentTimeMillis());
+
         ExtentSparkReporter spark = new ExtentSparkReporter(System.getProperty("user.dir") +
-                "/test-output/ExtentReport.html");
+                "/test-output/ExtentReport_" + suiteName + "_" + ".html");
         extent = new ExtentReports();
         extent.attachReporter(spark);
     }
