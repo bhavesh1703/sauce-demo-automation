@@ -9,6 +9,8 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import utils.ScreenshotUtils;
 
+import java.io.File;
+
 public class TestListener implements ITestListener {
 
     private static ExtentReports extent;
@@ -16,11 +18,18 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onStart(ITestContext context) {
-        String suiteName = context.getSuite().getName();
-        String timeStamp = String.valueOf(System.currentTimeMillis());
+//        String suiteName = context.getSuite().getName();
+//        String timeStamp = String.valueOf(System.currentTimeMillis());
+        String reportDirPath = System.getProperty("user.dir")
+                            + File.separator + "target"
+                            + File.separator + "extent-report";
 
-        ExtentSparkReporter spark = new ExtentSparkReporter(System.getProperty("user.dir") +
-                "/test-output/ExtentReport_" + suiteName + "_" + ".html");
+        File reportDir = new File(reportDirPath);
+        reportDir.mkdirs();
+
+        String reportPath = reportDirPath + File.separator + "ExtentReport.html";
+
+        ExtentSparkReporter spark = new ExtentSparkReporter(reportPath);
         extent = new ExtentReports();
         extent.attachReporter(spark);
     }
