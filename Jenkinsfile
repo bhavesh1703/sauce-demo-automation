@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage(Checkout) {
+        stage('Checkout') {
             steps {
                 checkout scm
             }
         }
 
-        stage(Build & Test) {
+        stage('Build & Test') {
             steps {
                 bat 'mvn clean test'
             }
