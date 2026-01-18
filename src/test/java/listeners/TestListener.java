@@ -20,12 +20,17 @@ public class TestListener implements ITestListener {
     public void onStart(ITestContext context) {
 //        String suiteName = context.getSuite().getName();
 //        String timeStamp = String.valueOf(System.currentTimeMillis());
+//        System.out.println(">>> TestListener onStart() executed <<<");
+//        System.out.println(">>> user.dir is: "+ System.getProperty("user.dir"));
         String reportDirPath = System.getProperty("user.dir")
                             + File.separator + "target"
                             + File.separator + "extent-report";
 
         File reportDir = new File(reportDirPath);
-        reportDir.mkdirs();
+        if(!reportDir.exists()) {
+            reportDir.mkdirs();
+        }
+//        System.out.println(">>> Created report dir at: "+ reportDir.getAbsolutePath());
 
         String reportPath = reportDirPath + File.separator + "ExtentReport.html";
 
