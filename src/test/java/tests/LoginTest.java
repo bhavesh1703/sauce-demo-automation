@@ -29,11 +29,11 @@ public class LoginTest extends BaseTest {
 
 
         ProductsPage products = new ProductsPage(BaseTest.getDriver());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         Assert.assertTrue(products.isProductPageDisplayed(), "Product Page is not displayed.");
     }
 
@@ -62,9 +62,15 @@ public class LoginTest extends BaseTest {
         login.clickErrorCloseButton();
     }
 
-    @Test(groups = "regression")
+    @Test(groups = "smoke")
     public void verifyBlankUsernameField() {
         LoginPage login = new LoginPage(BaseTest.getDriver());
+//        if(login.isErrorMessageDisplayed()) {
+//            System.out.println("Error is displayed.");
+//        } else {
+//            System.out.println("Error is not displayed.");
+//        }
+//        Assert.assertTrue(login.isErrorMessageDisplayed());
         login.setLogin("", ConfigReader.getPassword());
 
         //Validations

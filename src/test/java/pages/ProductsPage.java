@@ -31,8 +31,8 @@ public class ProductsPage {
     private By productDescLocator = By.xpath("//div[@class='inventory_item_desc']");
 
     public boolean isProductPageDisplayed() {
-        return BaseTest.getDriver().findElement(productPageHeader).isDisplayed();
-
+        return comm.isElementDisplayed(productPageHeader);
+//        return BaseTest.getDriver().findElement(productPageHeader).isDisplayed();
     }
 
     public List<String> getAllProductNames() {
@@ -84,7 +84,7 @@ public class ProductsPage {
         String targetProduct = productName.toLowerCase().replaceAll(" ", "-").trim();
 
         By addCartBtn = By.name("add-to-cart-" + targetProduct);
-        System.out.println(addCartBtn);
+//        System.out.println(addCartBtn);
         WebElement button = wait.waitForElementVisible(addCartBtn);
         System.out.println("Button found - :" + button.isDisplayed());
         button.click();

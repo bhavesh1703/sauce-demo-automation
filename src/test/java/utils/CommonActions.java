@@ -8,9 +8,11 @@ import org.openqa.selenium.WebElement;
 public class CommonActions {
 
     protected WebDriver driver;
+    private WaitUtils wait;
 
     public CommonActions(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WaitUtils(BaseTest.getDriver());
     }
 
     public void clickElement(By element) {
