@@ -15,6 +15,10 @@ pipeline {
         )
     }
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -27,6 +31,22 @@ pipeline {
                 echo "Running suite: ${params.SUITE}"
                 bat "mvn clean test -DsuiteXmlFile=src/test/resources/suites/${params.SUITE}.xml -DrunMode=${params.RUN_MODE}"
             }
+        }
+    }
+
+    post {
+        always {
+            echo "Pipeline finished. Archiving reports..."
+            archiveArtifacts artifacts: 'target/extent-report/**', allowEmptyArchive: true
+            archiveArtifacts artifacts: 'test-output/screenshots/**', allowEmptyArchive:true
+        }
+
+        success {
+            echo "Build Success"
+        }
+
+        failure {
+            echo "Build Failed"
         }
     }
 }
