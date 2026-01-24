@@ -22,6 +22,11 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
 
+        String runMode = System.getProperty("runMode", ConfigReader.getRunMode());
+
+        if(runMode.equalsIgnoreCase("headless")) {
+            options.addArguments("--headless=new");
+        }
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("credentials_enable_service", false);
 //        prefs.put("profile.password_manager_enabled", false);

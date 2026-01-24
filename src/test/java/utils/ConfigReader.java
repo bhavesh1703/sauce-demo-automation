@@ -42,5 +42,9 @@ public class ConfigReader {
         return prop.getProperty(key);
     }
 
+    public static String getRunMode() {
+        return prop.getProperty("runMode");
+    }
+
 
 }
