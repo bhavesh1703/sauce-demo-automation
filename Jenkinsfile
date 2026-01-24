@@ -25,7 +25,7 @@ pipeline {
         stage('Run Test Suite') {
             steps {
                 echo "Running suite: ${params.SUITE}"
-                bat "mvn clean test -DsuiteXmlFile=src/test/resources/suites/${params.SUITE}.xml -DrunMode=${prams.RUN_MODE}"
+                bat "mvn clean test -DsuiteXmlFile=src/test/resources/suites/${params.SUITE}.xml -DrunMode=${params.RUN_MODE}"
             }
         }
     }
