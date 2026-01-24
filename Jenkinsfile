@@ -7,13 +7,11 @@ pipeline {
             choices:['smoke','regression'],
             description:'Select which TestNG suite to run'
         )
-    }
 
-    parameters {
         choice(
-            name:'RUN_MODE',
-            choices:['headed', 'headless'],
-            description:'Select browser should be headed or headless'
+             name:'RUN_MODE',
+             choices:['headed', 'headless'],
+             description:'Select browser should be headed or headless'
         )
     }
 
