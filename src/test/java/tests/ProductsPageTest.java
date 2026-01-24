@@ -11,8 +11,7 @@ import utils.ConfigReader;
 import utils.RetryAnalyzer;
 
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
 
 public class ProductsPageTest extends BaseTest {
 
@@ -50,7 +49,6 @@ public class ProductsPageTest extends BaseTest {
         List<Double> originalPriceList = new ArrayList<>(); //without filter
 
         for(String price : priceString) {
-//            System.out.println(price);
             originalPriceList.add(Double.parseDouble(price.replace("$", "").trim()));
         }
 
